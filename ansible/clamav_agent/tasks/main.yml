@@ -1,0 +1,17 @@
+- name: install clamav packages
+  become: true
+  package:
+    name: "{{ clamav_packages }}"
+    state: present
+
+- name: update clamav
+  become: true
+  command: freshclam
+  changed_when: false
+
+- name: start clamav scan service
+  become: true
+  systemd:
+    name: clamav-daemon.service
+    enabled: yes
+    state: started

@@ -1,0 +1,6 @@
+---
+- name: Install ClamAV on all EC2 instances
+  hosts: all
+  gather_facts: true
+  roles:
+    - clamav_agent
