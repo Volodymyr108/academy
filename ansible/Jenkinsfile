@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Клонування репо з ролями Ansible
+                git 'https://github.com/Volodymyr108/academy.git'
+            }
+        }
+      // встановлення Ansible
+        stage('Install Dependencies') {
+            steps {
+                sh 'pip install ansible'
+            }
+        }
+    // розгортання ролі
+        stage('Deploy Role') {
+            steps {
+               sh 'ansible-playbook -i ansible/aws_ec2.yml clamav.yml'
+            }
+        }
+    }
+}
